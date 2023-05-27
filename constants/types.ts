@@ -5,6 +5,8 @@ export type SearchResultType = {
   symbol: string;
 };
 
+export type TableItemType = string[2] | [string, number];
+
 export type NewsType = {
   headline: string;
   summary: string;

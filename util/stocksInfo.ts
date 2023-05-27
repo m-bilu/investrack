@@ -33,3 +33,49 @@ export const getMarketNews = async () => {
   const marketNews = data.filter((news: any) => news.image).slice(0, 20);
   return marketNews;
 };
+
+export const getStockInfo = async (symbol: string) => {
+  try {
+    const response = await fetch(`${BACKEND_BASE_URL}/info?symbol=${symbol}`, {
+      next: { revalidate: 10 },
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getStockNews = async (symbol: string) => {
+  try {
+    const response = await fetch(`${BACKEND_BASE_URL}/news?symbol=${symbol}`, {
+      next: { revalidate: 10 },
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getStockSummary = async (symbol: string) => {
+  try {
+    const response = await fetch(
+      `${FRONTEND_BASE_URL}/api/stocks/summary?symbol=${symbol}`,
+      { next: { revalidate: 10 } }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getStockProfile = async (symbol: string) => {
+  try {
+    const response = await fetch(
+      `${FRONTEND_BASE_URL}/api/stocks/profile?symbol=${symbol}`,
+      { next: { revalidate: 10 } }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
