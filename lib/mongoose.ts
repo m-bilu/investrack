@@ -6,10 +6,7 @@ const connectDB = async () => {
   try {
     if (!MONGODB_URI)
       throw new Error('Please define the MONGODB_URI environment variable');
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGODB_URI);
   } catch (error) {
     console.error(error);
   }
