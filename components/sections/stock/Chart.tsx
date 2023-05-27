@@ -135,7 +135,11 @@ export default function Chart({ price, change, changePercent }: ChartProps) {
         </div>
         <div className='hidden xl:block'>{periodSelector}</div>
       </div>
-      {loading ? (
+      {error ? (
+        <p className='my-24 text-center text-white'>
+          Error loading chart. Please try again later.
+        </p>
+      ) : loading ? (
         <LoadingSpinner classes='h-[400px]' />
       ) : (
         <div ref={chartContainerRef} />
