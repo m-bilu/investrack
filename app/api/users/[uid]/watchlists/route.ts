@@ -17,7 +17,7 @@ export async function GET(
     return NextResponse.json(user.watchlists);
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error, status: 500 });
   }
 }
 
@@ -33,7 +33,9 @@ export async function POST(
     await connectDB();
 
     const user = await User.findOne({ uid });
-    if (!user) return NextResponse.error();
+    if (!user)
+      return NextResponse.json({ error: 'User not found', status: 404 });
+
     const watchlist = new Watchlist({
       name,
       user: user._id,
@@ -42,9 +44,10 @@ export async function POST(
     const savedWatchlist = await watchlist.save();
     user.watchlists.push(savedWatchlist._id);
     await user.save();
+
     return NextResponse.json(savedWatchlist);
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error, status: 500 });
   }
 }

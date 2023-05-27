@@ -14,14 +14,15 @@ export async function PUT(
     await connectDB();
 
     const watchlist = await Watchlist.findById(watchlistId);
-    if (!watchlist) return NextResponse.error();
+    if (!watchlist)
+      return NextResponse.json({ error: 'Watchlist not found', status: 404 });
     watchlist.name = name;
     await watchlist.save();
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
 
@@ -39,6 +40,6 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

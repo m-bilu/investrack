@@ -20,6 +20,7 @@ export default function WatchlistPage({
   const { watchlistId } = params;
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [watchlistStocksChange, setWatchlistsStockChange] = useState([]);
 
   const dispatch = useDispatch();
@@ -32,19 +33,27 @@ export default function WatchlistPage({
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      if (watchlist && watchlist.stocks) {
-        const promises = watchlist.stocks.map(async (symbol) => {
-          const response = await fetch(`/api/stocks/change?symbol=${symbol}`, {
-            next: {
-              revalidate: 10,
-            },
+      try {
+        if (watchlist && watchlist.stocks) {
+          const promises = watchlist.stocks.map(async (symbol) => {
+            const response = await fetch(
+              `/api/stocks/change?symbol=${symbol}`,
+              {
+                next: {
+                  revalidate: 10,
+                },
+              }
+            );
+            return await response.json();
           });
-          return await response.json();
-        });
-        const data: any = await Promise.all(promises);
-        setWatchlistsStockChange(data);
-        setLoading(false);
+          const data: any = await Promise.all(promises);
+          setWatchlistsStockChange(data);
+        }
+      } catch (error) {
+        console.error(error);
+        setError(true);
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -79,6 +88,10 @@ export default function WatchlistPage({
 
       {loading ? (
         <LoadingSpinner />
+      ) : error ? (
+        <p className='text-white text-lg'>
+          An error has occured. Please try again later.
+        </p>
       ) : (
         <div>
           {watchlistStocksChange.map((stock: any, i) => (

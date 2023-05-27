@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongoose';
 import Watchlist from '@/models/Watchlist';
 
+// Delete stock from watchlist
 export async function DELETE(
   request: Request,
   { params }: { params: { watchlistId: string; symbol: string } }
@@ -21,6 +22,6 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error, status: 500 });
   }
 }

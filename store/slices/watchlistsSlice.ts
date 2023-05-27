@@ -29,7 +29,7 @@ export const watchlistsSlice = createSlice({
 
       state.watchlists = state.watchlists.map((watchlist) => {
         if (watchlistIds.includes(watchlist._id)) {
-          watchlist.stocks.push(symbol);
+          if (!watchlist.stocks.includes(symbol)) watchlist.stocks.push(symbol);
         }
         return watchlist;
       });

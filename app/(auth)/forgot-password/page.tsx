@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { resetPassword } from '@/util/firebase/auth';
+import { validateForgotPassword } from '@/util/formValidation';
 import { useFormik } from 'formik';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
 import Button from '@/components/UI/Button';
-import { validateForgotPassword } from '@/util/formValidation';
 
 export default function ForgotPasswordForm() {
   const [emailSent, setEmailSent] = useState(false);

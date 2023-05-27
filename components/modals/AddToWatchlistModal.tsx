@@ -49,30 +49,47 @@ export default function AddToWatchlistModal() {
         Add to Watchlist
       </h2>
       <div className='mb-8 flex flex-col gap-7 md:mb-10'>
-        {watchlists.map((watchlist) => (
-          <label
-            htmlFor={watchlist._id}
-            className='flex cursor-pointer items-center justify-start gap-4'
-            key={watchlist._id}
-          >
-            <input
-              id={watchlist._id}
-              type='checkbox'
-              onChange={(event) => handleSelect(event, watchlist._id)}
-              className='transition-300 rounded h-5 w-5 cursor-pointer appearance-none rounded-2xs border border-white bg-darkerGrey checked:bg-white focus:ring-1 focus:ring-grey'
-            />
-            <p className='text-base text-white'>{watchlist.name}</p>
-          </label>
-        ))}
+        {watchlists.length > 0 ? (
+          watchlists.map((watchlist) => (
+            <label
+              htmlFor={watchlist._id}
+              className='flex cursor-pointer items-center justify-start gap-4'
+              key={watchlist._id}
+            >
+              <input
+                id={watchlist._id}
+                type='checkbox'
+                onChange={(event) => handleSelect(event, watchlist._id)}
+                className='transition-300 rounded h-5 w-5 cursor-pointer appearance-none rounded-2xs border border-white bg-darkerGrey checked:bg-white focus:ring-1 focus:ring-grey'
+              />
+              <p className='text-base text-white'>{watchlist.name}</p>
+            </label>
+          ))
+        ) : (
+          <p className='text-base text-white'>
+            You don&apos;t have any watchlists yet.
+          </p>
+        )}
       </div>
-      <Button
-        type='onClick'
-        onClick={handleConfirm}
-        hierarchy='tertiary'
-        classes='w-full'
-      >
-        Confirm
-      </Button>
+      {watchlists.length > 0 ? (
+        <Button
+          type='onClick'
+          onClick={handleConfirm}
+          hierarchy='tertiary'
+          classes='w-full'
+        >
+          Confirm
+        </Button>
+      ) : (
+        <Button
+          type='onClick'
+          onClick={() => dispatch(closeModal())}
+          hierarchy='tertiary'
+          classes='w-full'
+        >
+          OK
+        </Button>
+      )}
     </>
   );
 }

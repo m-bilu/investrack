@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useFormik } from 'formik';
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import { signUp, logInWithGoogle } from '@/util/firebase/auth';
-import { useFormik } from 'formik';
+import { validateSignUp } from '@/util/formValidation';
 import TextInput from '@/components/UI/TextInput';
 import Button from '@/components/UI/Button';
 import InputFeedback from '@/components/UI/InputFeedback';
-import { validateSignUp } from '@/util/formValidation';
 import { Eye, EyeOff } from 'react-feather';
 import { FcGoogle } from 'react-icons/fc';
 import { COLORS } from '@/constants/colors';

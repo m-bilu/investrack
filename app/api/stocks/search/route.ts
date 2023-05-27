@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { NextResponse } from 'next/server';
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     return NextResponse.json(data.slice(0, 16));
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
 

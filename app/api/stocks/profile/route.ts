@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { PROFILE_FIELDS, PROFILE_FIELDS_NUMBER_FORMAT } from '@/constants/data';
+import { NextResponse } from 'next/server';
 import { formatNumber } from '@/util/helpers';
+import { PROFILE_FIELDS, PROFILE_FIELDS_NUMBER_FORMAT } from '@/constants/data';
 
 const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     return NextResponse.json(profile);
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
 

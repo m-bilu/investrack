@@ -7,8 +7,6 @@ export async function POST(request: Request) {
   try {
     const { uid, name, email } = await request.json();
 
-    console.log('DATA: ', uid, name, email);
-
     await connectDB();
 
     const savedUser = await User.findOne({ uid });
@@ -28,6 +26,6 @@ export async function POST(request: Request) {
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({ error, status: 500 });
   }
 }

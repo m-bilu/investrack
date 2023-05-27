@@ -107,7 +107,7 @@ export default function Menu() {
       <div className='mb-12 grid gap-2'>
         {user ? (
           <>
-            <MenuItem
+            {/* <MenuItem
               label='Settings'
               icon={
                 <Settings
@@ -121,7 +121,7 @@ export default function Menu() {
               }
               isActive={pathname === '/settings'}
               onClick={() => router.push('/settings')}
-            />
+            /> */}
             <MenuItem
               label='Log Out'
               icon={

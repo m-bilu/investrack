@@ -1,10 +1,11 @@
 'use client';
 
 import IconButton from '@/components/UI/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/store/slices/modalSlice';
 import { List } from 'react-feather';
 import { COLORS } from '@/constants/colors';
+import { RootState } from '@/store/store';
 
 type IntroductionProps = {
   name: string;
@@ -18,6 +19,7 @@ export default function Introduction({
   exchange,
 }: IntroductionProps) {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   return (
     <section className='mb-4 2xl:mb-9'>
@@ -34,7 +36,11 @@ export default function Introduction({
         <div className='hidden gap-6 xl:flex'>
           <IconButton
             icon={<List width={20} height={20} color={COLORS.lightGrey} />}
-            onClick={() => dispatch(openModal('addToWatchlist'))}
+            onClick={() =>
+              user
+                ? dispatch(openModal('addToWatchlist'))
+                : dispatch(openModal('accountRequired'))
+            }
           >
             Add to Watchlist
           </IconButton>
