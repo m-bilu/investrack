@@ -1,6 +1,8 @@
 'use client';
 
 import IconButton from '@/components/UI/IconButton';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/store/slices/modalSlice';
 import { List } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
@@ -15,6 +17,8 @@ export default function Introduction({
   symbol,
   exchange,
 }: IntroductionProps) {
+  const dispatch = useDispatch();
+
   return (
     <section className='mb-4 2xl:mb-9'>
       <div className='mb-7 items-center justify-between xl:flex 2xl:mb-9'>
@@ -30,7 +34,7 @@ export default function Introduction({
         <div className='hidden gap-6 xl:flex'>
           <IconButton
             icon={<List width={20} height={20} color={COLORS.lightGrey} />}
-            onClick={() => {}}
+            onClick={() => dispatch(openModal('addToWatchlist'))}
           >
             Add to Watchlist
           </IconButton>

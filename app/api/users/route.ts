@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     if (savedUser)
       return NextResponse.json(
         { message: 'User already exists.' },
-        { status: 400 }
+        { status: 200 }
       );
     const newUser = new User({
       uid,

@@ -21,8 +21,7 @@ import { COLORS } from '@/constants/colors';
 export default function Menu() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const watchlistId = searchParams.get('watchlistId');
+  const watchlistId = pathname.split('/')[2];
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -78,7 +77,7 @@ export default function Menu() {
         <div className='mb-9 grid gap-1.5'>
           {watchlists.map((watchlist) => {
             const isActive =
-              pathname === '/watchlist/[watchlistId]' &&
+              pathname.startsWith('/watchlist') &&
               watchlistId === watchlist._id;
 
             return (

@@ -15,10 +15,8 @@ export default function DeleteWatchlistModal() {
 
   const handleConfirm = async () => {
     await axios.delete(`/api/watchlists/${watchlistId}`);
-
     dispatch(deleteWatchlist(watchlistId));
     dispatch(closeModal());
-
     router.push('/');
   };
 
