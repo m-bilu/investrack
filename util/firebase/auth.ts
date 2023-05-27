@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { auth } from '@/lib/firebase';
 import {
   EmailAuthProvider,
@@ -20,12 +21,16 @@ export const logIn = async (email: string, password: string) => {
     email,
     password
   );
-  return userCredential.user.uid;
+  const { user } = userCredential;
+  await createUserDocument(user.uid, user.displayName || '', user.email || '');
+  return user.uid;
 };
 
 export const logInWithGoogle = async () => {
   const userCredential = await signInWithPopup(auth, new GoogleAuthProvider());
-  return userCredential.user.uid;
+  const { user } = userCredential;
+  await createUserDocument(user.uid, user.displayName || '', user.email || '');
+  return user.uid;
 };
 
 export const signUp = async (name: string, email: string, password: string) => {
@@ -35,7 +40,9 @@ export const signUp = async (name: string, email: string, password: string) => {
     password
   );
   await changeName(name);
-  return userCredential.user.uid;
+  const { user } = userCredential;
+  await createUserDocument(user.uid, user.displayName || '', user.email || '');
+  return user.uid;
 };
 
 export const logOut = async () => {
@@ -84,4 +91,12 @@ export const deleteAccount = async (password: string) => {
   );
   await reauthenticateWithCredential(auth.currentUser, credentials);
   await deleteUser(auth.currentUser);
+};
+
+export const createUserDocument = async (
+  uid: string,
+  name: string,
+  email: string
+) => {
+  await axios.post('/api/users', { uid, name, email });
 };

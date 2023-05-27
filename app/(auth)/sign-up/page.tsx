@@ -70,6 +70,19 @@ export default function SignUpPage() {
     if (user) router.push('/');
   }, [user, router]);
 
+  const handleGoogleLogIn = async () => {
+    try {
+      await logInWithGoogle();
+    } catch (error) {
+      console.error(error);
+      setIsOtherError(true);
+      formik.setFieldError(
+        'confirmPassword',
+        'Something went wrong. Please try again.'
+      );
+    }
+  };
+
   return (
     <>
       <h1 className='mb-5 text-center text-5xl font-semibold xl:text-6xl'>
@@ -175,7 +188,11 @@ export default function SignUpPage() {
           Sign Up
         </Button>
 
-        <Button type='onClick' onClick={logInWithGoogle} hierarchy='secondary'>
+        <Button
+          type='onClick'
+          onClick={handleGoogleLogIn}
+          hierarchy='secondary'
+        >
           Sign up with Google
           <FcGoogle className='absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2' />
         </Button>

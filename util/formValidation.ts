@@ -51,3 +51,23 @@ export const validateForgotPassword = (values: any): any => {
 
   return errors;
 };
+
+export const validateChangeWatchlistName = (values: any): any => {
+  const errors: any = {};
+
+  if (!values.name) {
+    errors.name = 'Please enter a name.';
+  }
+
+  return errors;
+};
+
+export const validateCreateWatchlist = (values: any): any => {
+  const errors: any = {};
+
+  if (!values.name) {
+    errors.name = 'Please enter a name.';
+  }
+
+  return errors;
+};

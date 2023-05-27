@@ -39,7 +39,7 @@ export default function Button({
   if (hierarchy === 'primary') {
     buttonClasses += ' bg-gradient text-black';
   } else if (hierarchy === 'secondary') {
-    buttonClasses += ' bg-black border border-lightGrey text-lightGrey';
+    buttonClasses += ' bg-black border border-white text-white';
   } else if (hierarchy === 'tertiary') {
     buttonClasses += ' bg-blue1 hover:bg-blue2 text-darkGrey';
   } else {

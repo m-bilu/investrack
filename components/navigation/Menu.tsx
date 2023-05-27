@@ -1,9 +1,11 @@
 'use client';
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { logOut } from '@/util/firebase/auth';
+import { openModal } from '@/store/slices/modalSlice';
+import { logOutWatchlists } from '@/store/slices/watchlistsSlice';
 import MenuItem from './MenuItem';
 import {
   Search,
@@ -22,14 +24,26 @@ export default function Menu() {
   const searchParams = useSearchParams();
   const watchlistId = searchParams.get('watchlistId');
 
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const isMobileMenuOpen = useSelector(
     (state: RootState) => state.mobileMenu.isOpen
   );
-  const watchlists: any[] = [];
+  const watchlists = useSelector(
+    (state: RootState) => state.watchlists.watchlists
+  );
+
+  const handleCreate = (type: 'Watchlist' | 'Portfolio') => {
+    if (user) {
+      dispatch(openModal(`create${type}`));
+    } else {
+      dispatch(openModal('accountRequired'));
+    }
+  };
 
   const handleLogOut = async () => {
     await logOut();
+    dispatch(logOutWatchlists());
     router.replace('/');
   };
 
@@ -54,7 +68,7 @@ export default function Menu() {
         <div className='mb-3 mt-6 flex items-center justify-between px-4'>
           <span className='text-sm uppercase text-lightGrey'>Watchlists</span>
           <div
-            onClick={() => {}}
+            onClick={() => handleCreate('Watchlist')}
             className='transition-300 -m-1.5 overflow-hidden rounded-full p-1.5 hover:bg-darkGrey'
           >
             <Plus color={COLORS.lightGrey} className='cursor-pointer' />

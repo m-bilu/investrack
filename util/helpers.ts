@@ -1,14 +1,12 @@
-export function extractDomain(url: string) {
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  const hostname = anchor.hostname;
-  const domain = hostname.replace(/^www\./, '');
+export const extractDomain = (url: string) => {
+  let domain = url.replace(/^(https?:\/\/)?(www\.)?/i, '');
+  domain = domain.split('/')[0];
+  domain = domain.split(':')[0];
   return domain;
-}
+};
 
-export function formatNumber(num: number) {
+export const formatNumber = (num: number) => {
   if (num === 0) return '0';
-
   const isNegative = num < 0;
   num = Math.abs(num);
 
@@ -26,9 +24,9 @@ export function formatNumber(num: number) {
   }
 
   return isNegative ? '-' + formattedNum : formattedNum;
-}
+};
 
-export function getHiddenClasses(i: number, length: number) {
+export const getHiddenClasses = (i: number, length: number) => {
   let hiddenClasses = '';
 
   if (i === length - 1) {
@@ -48,4 +46,4 @@ export function getHiddenClasses(i: number, length: number) {
   }
 
   return hiddenClasses;
-}
+};

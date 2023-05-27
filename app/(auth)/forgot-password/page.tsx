@@ -72,14 +72,12 @@ export default function ForgotPasswordForm() {
           value={formik.values.email}
           placeholder='Email'
         />
-
-        {emailSent && (
-          <InputFeedback state='success'>Email sent!</InputFeedback>
-        )}
         {((formik.touched.email && formik.errors.email) || isOtherError) && (
           <InputFeedback state='error'>{formik.errors.email}</InputFeedback>
         )}
-
+        {emailSent && (
+          <InputFeedback state='success'>Email sent!</InputFeedback>
+        )}
         <Button type='submit' hierarchy='primary' classes='mb-5 mt-12'>
           Get Reset Link
         </Button>

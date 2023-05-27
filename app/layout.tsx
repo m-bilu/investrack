@@ -1,5 +1,6 @@
 import Providers from '@/components/redux/Providers';
 import Header from '@/components/navigation/Header';
+import Modal from '@/components/modals/Modal';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Modal />
         </Providers>
       </body>
     </html>
