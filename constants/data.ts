@@ -32,3 +32,15 @@ export const DEFAULT_SEARCH_RESULTS: SearchResultType[] = [
     symbol: 'META',
   },
 ];
+
+export const EXPLORE_STOCKS = [
+  'AAPL',
+  'GOOGL',
+  'TSLA',
+  'MSFT',
+  'META',
+  'BRK-A',
+  'GS',
+  'JPM',
+  'AMZN',
+];
