@@ -1,7 +1,7 @@
 import { Oval } from 'react-loader-spinner';
 import { COLORS } from '@/constants/colors';
 
-export default function LoadingSpinner({ classes }: { classes: string }) {
+export default function LoadingSpinner({ classes }: { classes?: string }) {
   return (
     <div className={`grid place-content-center ${classes}`}>
       <Oval
