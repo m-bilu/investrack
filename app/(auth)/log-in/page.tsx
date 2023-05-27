@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { RootState } from '@/store/store';
 import { logIn, logInWithGoogle } from '@/util/firebase/auth';
 import TextInput from '@/components/UI/TextInput';
 import Button from '@/components/UI/Button';
@@ -15,6 +18,10 @@ import { COLORS } from '@/constants/colors';
 export default function LogInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isOtherError, setIsOtherError] = useState(false);
+
+  const router = useRouter();
+
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const formik = useFormik({
     initialValues: {
@@ -52,6 +59,10 @@ export default function LogInPage() {
       }
     },
   });
+
+  useEffect(() => {
+    if (user) router.push('/');
+  }, [user, router]);
 
   return (
     <>

@@ -1,9 +1,10 @@
 'use client';
 
-import axios from 'axios';
-import { useContext, useEffect } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { logOut } from '@/util/firebase/auth';
+import MenuItem from './MenuItem';
 import {
   Search,
   List,
@@ -13,9 +14,7 @@ import {
   Settings,
   UserPlus,
 } from 'react-feather';
-import MenuItem from './MenuItem';
 import { COLORS } from '@/constants/colors';
-import { RootState } from '@/store/store';
 
 export default function Menu() {
   const router = useRouter();
@@ -23,14 +22,14 @@ export default function Menu() {
   const searchParams = useSearchParams();
   const watchlistId = searchParams.get('watchlistId');
 
-  const dispatch = useDispatch();
-  const user = null;
+  const user = useSelector((state: RootState) => state.auth.user);
   const isMobileMenuOpen = useSelector(
     (state: RootState) => state.mobileMenu.isOpen
   );
   const watchlists: any[] = [];
 
   const handleLogOut = async () => {
+    await logOut();
     router.replace('/');
   };
 

@@ -1,9 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { RootState } from '@/store/store';
+import { useSelector } from 'react-redux';
 import { signUp, logInWithGoogle } from '@/util/firebase/auth';
+import { useFormik } from 'formik';
 import TextInput from '@/components/UI/TextInput';
 import Button from '@/components/UI/Button';
 import InputFeedback from '@/components/UI/InputFeedback';
@@ -16,6 +19,10 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isOtherError, setIsOtherError] = useState(false);
+
+  const router = useRouter();
+
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const formik = useFormik({
     initialValues: {
@@ -58,6 +65,10 @@ export default function SignUpPage() {
       }
     },
   });
+
+  useEffect(() => {
+    if (user) router.push('/');
+  }, [user, router]);
 
   return (
     <>

@@ -67,7 +67,11 @@ export default function Button({
     );
   } else if (type === 'onClick') {
     return (
-      <button onClick={disabled ? () => {} : onClick} className={buttonClasses}>
+      <button
+        type='button'
+        onClick={disabled ? () => {} : onClick}
+        className={buttonClasses}
+      >
         {children}
         {buttonIcon}
       </button>

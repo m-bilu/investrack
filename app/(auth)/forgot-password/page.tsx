@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import { resetPassword } from '@/util/firebase/auth';
+import { useFormik } from 'formik';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
 import Button from '@/components/UI/Button';
@@ -11,6 +14,10 @@ import { validateForgotPassword } from '@/util/formValidation';
 export default function ForgotPasswordForm() {
   const [emailSent, setEmailSent] = useState(false);
   const [isOtherError, setIsOtherError] = useState(false);
+
+  const router = useRouter();
+
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +49,10 @@ export default function ForgotPasswordForm() {
       }
     },
   });
+
+  useEffect(() => {
+    if (user) router.push('/');
+  }, [user, router]);
 
   return (
     <>
